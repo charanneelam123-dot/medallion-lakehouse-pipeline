@@ -283,3 +283,4 @@ Source: [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-r
 2. Make changes and run tests: `pytest tests/ -v`
 3. Open a PR → CI runs automatically (lint, tests, GE validation, DAG check, security scan)
 4. All CI checks must pass before merge
+                            
