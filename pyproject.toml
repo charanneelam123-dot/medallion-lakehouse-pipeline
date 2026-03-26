@@ -1,0 +1,18 @@
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Notebooks exported as flat .py files; dbutils/spark are Databricks runtime globals
+# and functions may be called before definition across cells.
+"notebooks/*.py" = ["F821", "F401"]
+
+[tool.isort]
+profile = "black"
+force_single_line = true
+
+[tool.black]
+line-length = 88

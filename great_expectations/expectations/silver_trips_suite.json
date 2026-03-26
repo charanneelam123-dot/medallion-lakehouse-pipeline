@@ -1,0 +1,217 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "silver_trips_suite",
+  "expectations": [
+
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": { "min_value": 1000, "max_value": 10000000 },
+      "meta": { "notes": "Silver table must have at least 1,000 rows per batch." }
+    },
+    {
+      "expectation_type": "expect_table_columns_to_match_ordered_list",
+      "kwargs": {
+        "column_list": [
+          "vendor_id", "pickup_datetime", "dropoff_datetime",
+          "pickup_date", "pickup_hour", "pickup_dow", "pickup_month", "pickup_year",
+          "passenger_count", "trip_distance", "trip_duration_minutes", "speed_mph",
+          "ratecode_id", "store_and_fwd_flag", "pu_location_id", "do_location_id",
+          "payment_type", "payment_type_desc",
+          "fare_amount", "extra", "mta_tax", "tip_amount", "tip_percentage",
+          "tolls_amount", "improvement_surcharge", "total_amount", "congestion_surcharge",
+          "fare_per_mile",
+          "_bronze_ingestion_ts", "_source_file", "_silver_processed_ts", "_batch_date"
+        ]
+      },
+      "meta": { "notes": "Schema contract — all expected columns must be present in exact order." }
+    },
+
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "pickup_datetime" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "dropoff_datetime" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "vendor_id" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "pu_location_id" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "do_location_id" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "fare_amount" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "total_amount" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "trip_distance" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "_batch_date" },
+      "meta": {}
+    },
+
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": { "column": "pickup_datetime",  "type_": "TimestampType" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": { "column": "dropoff_datetime", "type_": "TimestampType" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": { "column": "fare_amount",      "type_": "DoubleType" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": { "column": "trip_distance",    "type_": "DoubleType" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": { "column": "passenger_count",  "type_": "IntegerType" },
+      "meta": {}
+    },
+
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "passenger_count", "min_value": 1, "max_value": 9 },
+      "meta": { "notes": "NYC TLC: 1–9 passengers per trip." }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "trip_distance", "min_value": 0.01, "max_value": 500 },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "fare_amount", "min_value": 2.50, "max_value": 1000 },
+      "meta": { "notes": "NYC minimum fare is $2.50." }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "total_amount", "min_value": 0.01, "max_value": 5000 },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "tip_amount", "min_value": 0, "max_value": 500 },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "trip_duration_minutes", "min_value": 0.5, "max_value": 480 },
+      "meta": { "notes": "Trips must be between 30 seconds and 8 hours." }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "pickup_hour", "min_value": 0, "max_value": 23 },
+      "meta": {}
+    },
+
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "payment_type",
+        "value_set": [1, 2, 3, 4, 5, 6]
+      },
+      "meta": { "notes": "TLC payment codes: 1=Credit, 2=Cash, 3=No charge, 4=Dispute, 5=Unknown, 6=Voided." }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "payment_type_desc",
+        "value_set": ["Credit card", "Cash", "No charge", "Dispute", "Unknown", "Voided trip", "Other"]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "vendor_id",
+        "value_set": [1, 2]
+      },
+      "meta": { "notes": "NYC TLC vendors: 1=Creative Mobile Technologies, 2=VeriFone." }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "store_and_fwd_flag",
+        "value_set": ["Y", "N"],
+        "mostly": 0.99
+      },
+      "meta": {}
+    },
+
+    {
+      "expectation_type": "expect_column_pair_values_a_to_be_greater_than_b",
+      "kwargs": {
+        "column_A": "dropoff_datetime",
+        "column_B": "pickup_datetime",
+        "or_equal": false
+      },
+      "meta": { "notes": "Dropoff must always be after pickup." }
+    },
+    {
+      "expectation_type": "expect_column_pair_values_a_to_be_greater_than_b",
+      "kwargs": {
+        "column_A": "total_amount",
+        "column_B": "fare_amount",
+        "or_equal": true
+      },
+      "meta": { "notes": "Total must be >= fare (includes tips, taxes, surcharges)." }
+    },
+
+    {
+      "expectation_type": "expect_column_proportion_of_unique_values_to_be_between",
+      "kwargs": {
+        "column": "pickup_datetime",
+        "min_value": 0.5
+      },
+      "meta": { "notes": "At least 50% of pickup timestamps should be unique (dedup check)." }
+    },
+
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "_silver_processed_ts" },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "_bronze_ingestion_ts" },
+      "meta": {}
+    }
+  ],
+  "ge_cloud_id": null,
+  "meta": {
+    "great_expectations_version": "0.18.x",
+    "created_by": "charan.neelam",
+    "created_at": "2024-01-01T00:00:00Z",
+    "notes": "Expectation suite for NYC Taxi Silver layer. Run after every Silver transform."
+  }
+}

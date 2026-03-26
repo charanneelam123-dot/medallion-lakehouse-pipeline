@@ -1,0 +1,34 @@
+name: silver_trips_checkpoint
+config_version: 1.0
+class_name: SimpleCheckpoint
+run_name_template: "%Y%m%d-%H%M%S-silver-trips"
+
+validations:
+  - batch_request:
+      datasource_name: spark_datasource
+      data_connector_name: runtime_data_connector
+      data_asset_name: silver_trips
+      batch_identifiers:
+        batch_date: "{{ batch_date }}"
+        run_id:     "{{ run_id }}"
+    expectation_suite_name: silver_trips_suite
+    action_list:
+      - name: store_validation_result
+        action:
+          class_name: StoreValidationResultAction
+      - name: store_evaluation_params
+        action:
+          class_name: StoreEvaluationParametersAction
+      - name: update_data_docs
+        action:
+          class_name: UpdateDataDocsAction
+          site_names:
+            - local_site
+      - name: send_slack_notification_on_failure
+        action:
+          class_name: SlackNotificationAction
+          slack_webhook: "${GE_SLACK_WEBHOOK}"
+          notify_on: failure
+          renderer:
+            module_name: great_expectations.render.renderer.slack_renderer
+            class_name: SlackRenderer
