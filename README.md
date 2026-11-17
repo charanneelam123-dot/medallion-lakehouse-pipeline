@@ -9,7 +9,7 @@
 ![dbt](https://img.shields.io/badge/dbt-1.7-FF694B?logo=dbt&logoColor=white)
 ![Azure](https://img.shields.io/badge/Azure-ADLS_Gen2-0078D4?logo=microsoftazure&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-S3-FF9900?logo=amazonaws&logoColor=white)
-![CI](https://img.shields.io/github/actions/workflow/status/your-org/medallion-lakehouse-pipeline/ci.yml?label=CI)
+![CI](https://img.shields.io/github/actions/workflow/status/charanneelam123-dot/medallion-lakehouse-pipeline/ci.yml?label=CI)
 
 Production-grade **Medallion Lakehouse** pipeline for NYC Taxi trip data built on **Databricks + Delta Lake**, orchestrated with **Apache Airflow**, and quality-gated with **Great Expectations**.
 
@@ -158,7 +158,7 @@ medallion-lakehouse-pipeline/
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/your-org/medallion-lakehouse-pipeline.git
+git clone https://github.com/charanneelam123-dot/medallion-lakehouse-pipeline.git
 cd medallion-lakehouse-pipeline
 
 python -m venv .venv
